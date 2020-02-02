@@ -63,6 +63,9 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;} /*Всё заголовк
 	--main-bg-color: #e9e9e9;
 	--main-theme:#4f4b66;
 	--main-theme-light: #646178;
+
+	--button-complete: #43A047;
+	--button-delete: red;
   }
 
 
@@ -75,17 +78,23 @@ body{
 }
 	.container{
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
+		align-items: flex-start;
 
 		margin: 0 auto;
 
 		width: 980px;
 		max-width: 980px;
 		height: 90vh;
-
+	
 		
-	}/* Позже добавить медиавыражение для мелких экранов. Максимальную ширину для десктопа и 100% для планшетов и меньше
+	}/* Позже добавить медиавыражение для мелких экранов. Максимальную ширину для десктопа и 100% для планшетов и меньше*/
 
+	@media screen and (max-width: 980px) {
+		.container{
+			width: 100%;
+		}
+    }
 		/* === Header === */
 		header{
 			width: 100%;
@@ -148,3 +157,98 @@ body{
 						.new-task__button svg .fill{
 							fill: white;
 						}
+		.todo__container{
+			width: 100%;
+			padding: 15px;
+		}
+			.todo__uncomplete{
+				width: 100%;
+				margin:10px 0;
+			}
+				.uncomplete__item{
+					width: 100%;
+					min-height: 25px; /*min-height*/
+					background-color: white ;
+					border-radius: 5px;
+					box-shadow: 0 1px 2px rgba(44, 62, 80, 0.15);
+
+					line-height: 20px;
+					
+					margin: 10px 0;
+					padding: 15px;
+
+					display: flex;
+					justify-content: space-between;
+				}
+				.uncomplete__item:last-child{
+					margin-bottom: 0;
+				}
+					.uncomplete-item__text{
+						
+						margin-right: 15px;
+					}
+					.uncomplete-item__buttons{
+						width: 100px;
+						display: flex;
+						flex-wrap: nowrap;
+					} /* add media to vertical format*/
+						.uncomplete-item__button{
+							width: 40px;
+							height: 40px;
+							margin-right: 5px;
+							position: relative;
+
+							background: none;
+							
+						}		
+
+							.uncomplete-item__button:last-child::before{
+								content: "";
+								width: 1px;
+								height: 30px;
+								position: absolute;
+								top: 5px;
+								left: -5px;
+								background-color: grey;
+							}
+							.uncomplete-item__button svg{
+								width: 36px;
+								height: 36px;
+								transition: all .4s;
+							}
+							.uncomplete-item__button:hover svg{
+								/* width: 40px;
+								height: 40px; */
+								transition: all .4s;
+								
+							}
+							
+
+							/* Почему везде использую класс .fill? Потому что удобно. Всё равно, этот класс отдельно, сам по себе я не использую, по этому множественного влияния он оказывать не будет (хоть и указан для всех svg, но применяется узкоспециализированно благодаря комбинации селекторов) */
+							.uncomplete-item__button svg .fill{  
+								fill: grey;
+							}
+							/* .button-complete{
+								transition: all .4s;
+							}
+							.button-delete{
+								transition: all .4s;
+							} */
+							.button-delete:hover svg .fill{  
+								fill: var(--button-delete);
+								transition: all .4s;
+							}
+								/* .button-delete:hover{  
+									border-radius: 50%;
+									border: 2px var(--button-delete) solid;
+									transition: all .1s;
+								} */
+							.button-complete:hover svg .fill{  
+								fill: var(--button-complete);
+								transition: all .4s;
+							}
+								/* .button-complete:hover {
+									border-radius: 50%;
+									border: 2px var(--button-complete) solid;
+									transition: all .1s;
+								} */
