@@ -1,0 +1,51 @@
+/*Статья про обнуление https://medium.com/@stasonmars/%D1%81%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B8%CC%86-%D1%81%D0%B1%D1%80%D0%BE%D1%81-css-f5816963c82b*/
+/*Обнуление*/
+
+/*Делить страницу на блоки - создаю контейнеры и либо указываю высоту контентом, либо vh (на всю страницу), и крайне редко px*/
+*{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+*,*:before,*:after{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;} /*Всё в блоки, для лучшей вёрстки*/
+body{
+	display: flex;
+	flex-direction: column;
+}
+
+html,body{ /*Привожу все шрифты к одному стилю*/
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	line-height: 1;
+	font-size: 14px;
+	
+	font-family: Lato;
+
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+input,button,textarea{font-family:inherit;} /*Наследую настройки шрифтов для данных элементов, потому что это не происходит автоматически*/
+
+input::-ms-clear{display: none;} /*Убираю кастомы разных браузеров по умолчанию*/
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+a{text-decoration: none;}
+ul li{list-style: none;}
+li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;} /*Всё заголовки "в ноль", для перестройки под макет"
+/*--------------------*/
+
