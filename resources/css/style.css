@@ -60,9 +60,9 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;} /*Всё заголовк
 /* === Variable ===*/
 
 :root {
-	--main-bg-color: #e9e9e9;
-	--main-theme:#4f4b66;
-	--main-theme-light: #646178;
+	--main-bg-color: #f6f5f8;
+	--main-theme:#4a5d7d;
+	--main-theme-light: #617592;
 
 	--button-complete: #43A047;
 	--button-delete: red;
