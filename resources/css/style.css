@@ -161,8 +161,9 @@ body{
 		.todo__container{
 			width: 100%;
 			padding: 15px;
+			position: relative;
 		}
-			.todo__uncomplete{
+			.todo{
 				width: 100%;
 				margin:10px 0;
 			}
@@ -248,3 +249,22 @@ body{
 									border: 2px var(--button-complete) solid;
 									transition: all .1s;
 								} */
+			.todo__complete{
+				position: relative;
+			}
+			
+			.todo__complete:not(:empty){
+				margin-top: 70px;
+			
+			}
+			
+			.todo__complete:not(:empty):before{
+				content: "";
+				width: 70%;
+				height: 1px;
+				background-color: #d8e5e0;
+				position: absolute;
+				left: 15%;
+				top: -35px;
+			
+			}
