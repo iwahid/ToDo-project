@@ -32,6 +32,14 @@ function createNewItem (){
         }
 }
 
+// delete current item of the list-items (I doing in accordance with the principle: one function - one action. That comment add to docs of project (readmy))
+function deleteItem(){
+    let itemChild = this.parentNode.parentNode // current item. //
+    let parentOfItem = this.parentNode.parentNode.parentNode // parent of current child. // Depth of properties depends on the nesting of elements: li/buttons/button
+    parentOfItem.removeChild(itemChild)
+}
+
+
 
 // Function of create new item in ToDo-complete list Items
 function addNewItemToList(textValue){
@@ -52,7 +60,9 @@ function addNewItemToList(textValue){
     button_delete.classList.add("uncomplete-item__button") // two classes
     button_delete.classList.add("button-delete") // two classes
     button_delete.innerHTML = delete_svg // adding real HTML into html element
-   
+    
+    // event listener for "delete" button
+    button_delete.addEventListener("click", deleteItem)
 
     let button_complete = document.createElement("button")
     button_complete.classList.add("uncomplete-item__button") //two classes
