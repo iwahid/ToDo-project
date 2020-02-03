@@ -16,12 +16,13 @@ add_new_item.addEventListener("click", function(){
 //add new item to todo list. Second event listener (key press)
 new_task_input.addEventListener("keypress", function(event){ 
      if (event.key==="Enter") createNewItem()
-     //*else if (event.key==="1") console.log("Input clear!") // even.key==="Escape"*/
+     else //if (event.key==="1") console.log("Input clear!") // even.key==="Escape"*/
+     console.log(event.key)
 })
 
 // item creation function itself
 function createNewItem (){
-        console.log("Button click")
+        console.log(`function "createNewItem" initialized`)
         let textValue = new_task_input.value//document.getElementById("item").value
         if (textValue){
             console.log("New value: " + textValue)
@@ -34,7 +35,7 @@ function createNewItem (){
 
 // Function of create new item in ToDo-complete list Items
 function addNewItemToList(textValue){
-    console.log("Fun--addNewItemList: " + new_task_input)
+    console.log(`function "addNewItemToList" initialized`)
     let uncomplete_list_item = document.getElementById("todo__uncomplete")
     uncomplete_list_item.classList.add("todo__uncomplete")
 
@@ -70,7 +71,7 @@ function addNewItemToList(textValue){
 
     uncomplete_list_item.insertBefore(uncomplete_item, uncomplete_list_item.childNodes[0]) // uncomplete_list_item.appendChild(uncomplete_item) //reverse sequence
     
-    console.log("Fun--addNewItemList: complete. New element: " + uncomplete_list_item)
+    console.log("Add new item and an includes that to uncomplete list")
 
     new_task_input.value="" // clear
 
