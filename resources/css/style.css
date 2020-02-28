@@ -268,3 +268,25 @@ body{
 				top: -35px;
 			
 			}
+			
+			.todo__uncomplete:empty:before{
+				content: "Нет задач для выполнения";
+				text-align: center;
+				font-size: 12px;
+				color: gray;
+				display: block;
+				width: 100%;
+				position: absolute;
+				left: 15%;
+				top: 305px;
+			}
+			
+			.todo__complete:empty:before{
+				content: "Нет ни одной выполненной задачи";
+				text-align: center;
+				font-size: 12px;
+				color: gray;
+				display: block;
+				width: 100%;
+				margin-top: 35px;
+			}
