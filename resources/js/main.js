@@ -21,11 +21,39 @@ let todo_complete_id = "todo__complete"
 
 
 /* all data container */
-let data = {
-    complete:[],
-    uncomplete:[]
+/* при открытии страницы нужно проверить: если в хранилище что-то осталось, тогда на текущий сеанс юзаем эти данные, иначе - создаём новые списки */
+let data
+/* check of empty */
+if (localStorage.getItem("myTodoList")) {
+    data = JSON.parse(localStorage.getItem("myTodoList"))
+} else{
+    data = {
+        complete:[],
+        uncomplete:[]
+    }
 }
 
+renderToDoList()
+
+/* Рендер страницы со всеми данными, при перезагрузке/обновлении/переоткрытии страницы */
+function renderToDoList() {
+    if (!data.uncomplete.length && !data.complete.length) {
+        return
+    } 
+
+    for (let i = 0; i < data.uncomplete.length; i++) {
+        let value = data.uncomplete[i];
+        
+    }
+
+    for (let j = 0; j < data.complete.length; j++) {
+        let value = data.complete[j];
+        
+    }
+}
+
+/* localStorage */
+console.log("this is ", localStorage) /* Хранилище, после переоткрытия страницы, всегда хранит в себе последнюю информацию. И она исчезает, когда заново срабатывает скрипт */
 
 
 //add new item to todo list. First event listener (mouse click)
@@ -51,10 +79,10 @@ function createNewItem (){
         let textValue = new_task_input.value//document.getElementById("item").value
         if (textValue){
             console.log("New value: " + textValue)
-            addNewItemToList(textValue)
 
             /* push this value in data-list */
             data.uncomplete.push(textValue)
+            addNewItemToList(textValue)/* была ошибка, при которой я сперва рисовал элемент, а после кидал объект в массив с данными. Из-за не верной очерёдности массив заполнялся с отсрочкой */
             console.log("=== data.UNcomplete === ", data)
 
         } else {
@@ -62,6 +90,8 @@ function createNewItem (){
         }
         new_task_input.value="" // clear. Move to plaсe where is the function called
 }
+
+
 
 // delete current item of the list-items (I doing in accordance with the principle: one function - one action. That comment add to docs of project (readme))
 function deleteItem(){
@@ -80,7 +110,10 @@ function deleteItem(){
         console.log("data changes   ************* data = ", data)
     }
     parentOfItem.removeChild(itemChild)
+    dataUpdated()
 }
+
+
 
 // transposition item from uncomplete into complete list. And back a round
 // код внутри вариативен, можно было сделать по другому - без циклов внутри, просто заранее определив отдельные функции ответственные за перекидывание из конкретного в конкретное место. Вариативность либо снаружи, либо здесь.
@@ -116,7 +149,10 @@ function transpositionItem (){
     //transposition to current list  
     destenationList.insertBefore(itemChild, destenationList.childNodes[0])
     console.log("item transposition from " + itemChild + " to " + destenationList)
+
+    dataUpdated()
 }
+
 
 
 // Function of create new item in ToDo-complete list Items
@@ -164,5 +200,12 @@ function addNewItemToList(textValue){
     uncomplete_list_item.insertBefore(uncomplete_item, uncomplete_list_item.childNodes[0]) // uncomplete_list_item.appendChild(uncomplete_item) //reverse sequence
     
     console.log("Create new item and an includes that to uncomplete list")
-
+    dataUpdated()
 } 
+
+
+function dataUpdated(){
+    localStorage.setItem("myTodoList", JSON.stringify(data))/* Конвертирую и расписываю весь объект в строки только по тому, что все значения в локальном хранилище храняться только в виде строк.  */
+    console.log("data update!!!!!!!!!!!!", data)
+    console.log("LocalStorage!!!!!!!!!!!!", localStorage)
+}
