@@ -43,12 +43,12 @@ function renderToDoList() {
 
     for (let i = 0; i < data.uncomplete.length; i++) {
         let value = data.uncomplete[i];
-        
+        renderListFilling(value, true)
     }
 
     for (let j = 0; j < data.complete.length; j++) {
         let value = data.complete[j];
-        
+        renderListFilling(value, false)
     }
 }
 
@@ -208,4 +208,59 @@ function dataUpdated(){
     localStorage.setItem("myTodoList", JSON.stringify(data))/* Конвертирую и расписываю весь объект в строки только по тому, что все значения в локальном хранилище храняться только в виде строк.  */
     console.log("data update!!!!!!!!!!!!", data)
     console.log("LocalStorage!!!!!!!!!!!!", localStorage)
+}
+
+
+/* код нижележащей функции сильно дублирует код функции addNewItemToList. Но только она вызывается в случае создания новой заметки, а эта функция только при рендере страницы при перезагрузке. Можно было создать одну (так и нужно было в идеале), и внутри уже настроить ветвление. Но там слишком много нужно рефакторить и приводить к правильному формату. Создать правильные классы (нейтральные). Но пока это всё работает */
+function renderListFilling (textValue, flag){
+    console.log(`function "renderListFilling" initialized`)
+    let currentList
+    if (flag) {
+        currentList = document.getElementById("todo__uncomplete") 
+        currentList.classList.add("todo__uncomplete")
+    } else{
+        currentList = document.getElementById("todo__complete") 
+        currentList.classList.add("todo__complete")
+    }
+    
+    let currentList_item = document.createElement("li")
+    currentList_item.classList.add("uncomplete__item")
+
+    let currentList_text = document.createElement("span") /* needs added new class class="uncomplete-item__text" for working witch it*/
+    currentList_text.innerText = textValue // adding just text
+
+    let currentList_item_buttons = document.createElement("div")
+    currentList_item_buttons.classList.add ("uncomplete-item__buttons") 
+
+    // buttons 
+    let button_delete = document.createElement ('button')
+    button_delete.classList.add("uncomplete-item__button")
+    button_delete.classList.add("button-delete") // two classes
+    button_delete.innerHTML = delete_svg // adding real HTML into html element
+    
+    // event listener for "delete" button
+    button_delete.addEventListener("click", deleteItem)
+
+    let button_complete = document.createElement("button")
+    button_complete.classList.add("uncomplete-item__button") 
+    button_complete.classList.add("button-complete") //two classes
+    button_complete.innerHTML = complete_svg
+
+    // event listener for "complete" button
+    button_complete.addEventListener("click", transpositionItem)
+    // buttons (end)
+
+    // Adding now created items to parent items. Matryoshka-style princip. Do not forget about the sequence: first buttons of delete, second of complete
+    currentList_item_buttons.appendChild(button_delete)
+    currentList_item_buttons.appendChild(button_complete)
+    
+
+    currentList_item.appendChild(currentList_text)
+    currentList_item.appendChild(currentList_item_buttons)
+  
+
+    currentList.insertBefore(currentList_item, currentList.childNodes[0]) // uncomplete_list_item.appendChild(uncomplete_item) //reverse sequence
+    
+    console.log("Create new item and an includes that to uncomplete list")
+    dataUpdated()
 }
